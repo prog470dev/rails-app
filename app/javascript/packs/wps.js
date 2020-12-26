@@ -1,1 +1,1 @@
-import "wps/index.js";
+import "wps/index";
