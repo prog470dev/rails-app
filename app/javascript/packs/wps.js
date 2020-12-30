@@ -1,1 +1,0 @@
-import "wps/index";

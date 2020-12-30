@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDom from "react-dom";
-import Counter from "./counter";
+import Edit from "tags/edit";
 
 document.addEventListener('DOMContentLoaded', () => {
     ReactDom.render(
-        <Counter title={'COUNTER'}/>,
-        document.getElementById('wp')
+        <Edit/>,
+        document.getElementById('tags__edit')
     );
 })

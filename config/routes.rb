@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   resources :users
-  resources :wps, only: %i[index]
+  resources :sentences, only: %i[new edit]
+  resources :tags, only: %i[new edit]
 
   namespace :api do
     resources :sentences
