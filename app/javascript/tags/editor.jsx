@@ -10,7 +10,7 @@ const Editor = (props) => {
   }, [props.tag]);
 
   return (
-      <div>
+      <>
         <h1>{props.tag?.id || "New Tag"}</h1>
         <span>Name: </span>
         <input type="text" value={name} onChange={() => setName(event.target.value)}/>
@@ -27,10 +27,11 @@ const Editor = (props) => {
             props.onSave(props.tag.id, name, parentId);
           } else {
             props.onCreate(name, parentId);
-            // TODO: リダイレクト
           }
+          // TODO: 適切なリダイレクト手段
+          location.href = `${location.protocol}//${location.host}/sentences`;
         }}>Save</button>
-      </div>
+      </>
     );
 };
 

@@ -2,7 +2,7 @@
 
 Rails.application.routes.draw do
   resources :users
-  resources :sentences, only: %i[new edit]
+  resources :sentences, only: %i[index new edit]
   resources :tags, only: %i[new edit]
 
   namespace :api do

@@ -49,7 +49,12 @@ const Edit = () => {
         }
     }, []);
 
-    return (<Editor sentence={sentence} onCreate={handleCreate} onSave={handleSave} />);
+    return (
+        <>
+            <h1>{sentence?.id}</h1>
+            <Editor sentence={sentence} onCreate={handleCreate} onSave={handleSave} />
+        </>
+    );
 }
 
 export default Edit;

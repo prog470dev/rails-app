@@ -14,7 +14,12 @@ const handleCreate = async (content) => {
 }
 
 const New = () => {
-    return (<Editor sentence={null} onCreate={handleCreate} onSave={() => { }} />);
+    return (
+        <>
+            <h1>New Sentence</h1>
+            <Editor sentence={null} onCreate={handleCreate} onSave={() => { }} />
+        </>
+    );
 }
 
 export default New;

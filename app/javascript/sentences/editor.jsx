@@ -9,7 +9,6 @@ const Editor = (props) => {
 
     return (
       <div>
-        <h1>{props.sentence?.id || "New Sentence"}</h1>
         <textarea onChange={() => { setContent(event.target.value) }} value={content} />
         <br/>
         <button onClick={() => {
@@ -17,8 +16,9 @@ const Editor = (props) => {
             props.onSave(props.sentence.id, content)
           } else {
             props.onCreate(content)
-            // TODO: リダイレクト
           }
+          // TODO: 適切なリダイレクト手段
+          location.href = `${location.protocol}//${location.host}/sentences`;
         }}>Save</button>
       </div>
     );
