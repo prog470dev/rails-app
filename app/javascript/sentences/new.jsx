@@ -1,25 +1,42 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import Editor from "./editor";
 
-const handleCreate = async (content) => {
-    const data = {
-        content: content
-    }
-    return fetch(`/api/sentences`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-    })
-        .then(response => response.json())
-}
+const handleFetchTags = () => {
+  return fetch(`/api/tags`, {
+    method: "GET",
+  }).then((response) => response.json());
+};
+
+const handleCreate = async (content, tags) => {
+  const data = {
+    content: content,
+    tags: tags.map((tag) => tag.id),
+  };
+  return fetch(`/api/sentences`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  }).then((response) => response.json());
+};
 
 const New = () => {
-    return (
-        <>
-            <h1>New Sentence</h1>
-            <Editor sentence={null} onCreate={handleCreate} onSave={() => { }} />
-        </>
-    );
-}
+  const [options, setOptions] = useState([]);
+
+  useEffect(async () => {
+    try {
+      const result = await handleFetchTags();
+      setOptions([...result.tags.map((e) => ({ id: e.id, name: e.name }))]);
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  return (
+    <>
+      <h1>New Sentence</h1>
+      <Editor sentence={null} options={options} onCreate={handleCreate} />
+    </>
+  );
+};
 
 export default New;

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Tag < ApplicationRecord
   has_many :tag_assignments
   has_many :sentences, through: :tag_assignments
