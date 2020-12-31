@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import List from "./list";
 
 const handleFetchSentences = (tags) => {
-  console.log(`/api/sentences?tags=${tags.join("+")}`);
   return fetch(`/api/sentences?tags=${tags.join("+")}`, {
     method: "GET",
   }).then((response) => response.json());
@@ -39,6 +38,16 @@ const Index = () => {
 
   return (
     <>
+      <h1>Reports</h1>
+      <button
+        onClick={() => {
+          // TODO: 適切なリダイレクト手段
+          location.href = `${location.protocol}//${location.host}/tag_summary`;
+        }}
+      >
+        Tag Summary
+      </button>
+      <br />
       <h1>Sentences</h1>
       <List sentences={sentences} />
       <br />
