@@ -7,30 +7,35 @@ class Api::SentencesController < ApplicationController
     if params[:tags]
       tags = params[:tags].split(' ').map(&:to_i)
       unless tags.empty?
-        sentences = sentences
-                    .joins(:tag_assignments)
-                    .where(tag_assignments: { tag_id: tags })
-                    .distinct(:id)
+        sentences =
+          sentences.joins(:tag_assignments).where(
+            tag_assignments: { tag_id: tags }
+          )
+            .distinct(:id)
       end
     end
 
-    render json: { sentences:
-      sentences.map do |sentence|
-        {
-          id: sentence.id,
-          content: sentence.content,
-          tags: sentence.tags
-        }
-      end }, status: :ok
+    render json: {
+             sentences:
+               sentences.map { |sentence|
+                 {
+                   id: sentence.id,
+                   content: sentence.content,
+                   tags: sentence.tags
+                 }
+               }
+           },
+           status: :ok
   end
 
   def show
     sentence = Sentence.find(params[:id])
-    render json: { sentence: {
-      id: sentence.id,
-      content: sentence.content,
-      tags: sentence.tags
-    } }, status: :ok
+    render json: {
+             sentence: {
+               id: sentence.id, content: sentence.content, tags: sentence.tags
+             }
+           },
+           status: :ok
   rescue ActiveRecord::RecordNotFound => e
     render json: { message: e.message }, status: :bad_request
   end

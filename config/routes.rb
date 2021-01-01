@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :users
   resources :sentences, only: %i[index new edit]
   resources :tags, only: %i[new edit]
 
