@@ -2,7 +2,7 @@
 
 class Api::SentencesController < ApplicationController
   def index
-    sentences = Sentence.all
+    sentences = Sentence.all.preload(:tags)
     # タグによる絞り込み
     if params[:tags]
       tags = params[:tags].split(' ').map(&:to_i)
