@@ -1,22 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Editor from "./editor";
-
-const handleFetchTags = () => {
-  return fetch(`/api/tags`, {
-    method: "GET",
-  }).then((response) => response.json());
-};
+import * as ApiUtil from "../api_util";
 
 const handleCreate = async (name, parent_id) => {
   const data = {
     name: name,
     parent_id: parent_id === 0 ? null : parent_id,
   };
-  return fetch(`/api/tags`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  }).then((response) => response.json());
+  return ApiUtil.createTag(data);
 };
 
 const New = () => {
@@ -24,7 +15,7 @@ const New = () => {
 
   useEffect(async () => {
     try {
-      const result = await handleFetchTags();
+      const result = await ApiUtil.fetchTags();
       setOptions([
         { id: 0, name: "none" },
         ...result.tags.map((e) => ({ id: e.id, name: e.name })),

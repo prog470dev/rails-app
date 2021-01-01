@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Bar } from "react-chartjs-2";
-
-const handleFetchSummary = (tags) => {
-  return fetch(`/api/tag_summary`, {
-    method: "GET",
-  }).then((response) => response.json());
-};
+import * as ApiUtil from "../api_util";
 
 const buildData = (summary) => {
   return {
@@ -25,7 +20,7 @@ const TagSummary = () => {
 
   useEffect(async () => {
     try {
-      const result = await handleFetchSummary();
+      const result = await ApiUtil.fetchTagSummary();
       setSummary(result.summary);
     } catch (error) {
       console.log(error);

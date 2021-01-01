@@ -1,22 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Editor from "./editor";
-
-const handleFetchTags = () => {
-  return fetch(`/api/tags`, {
-    method: "GET",
-  }).then((response) => response.json());
-};
+import * as ApiUtil from "../api_util";
 
 const handleCreate = async (content, tags) => {
   const data = {
     content: content,
     tags: tags.map((tag) => tag.id),
   };
-  return fetch(`/api/sentences`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  }).then((response) => response.json());
+  return ApiUtil.createSentence(data);
 };
 
 const New = () => {
@@ -24,7 +15,7 @@ const New = () => {
 
   useEffect(async () => {
     try {
-      const result = await handleFetchTags();
+      const result = await ApiUtil.fetchTags();
       setOptions([...result.tags.map((e) => ({ id: e.id, name: e.name }))]);
     } catch (error) {
       console.log(error);

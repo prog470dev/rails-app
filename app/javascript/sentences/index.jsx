@@ -1,17 +1,6 @@
 import React, { useEffect, useState } from "react";
 import List from "./list";
-
-const handleFetchSentences = (tags) => {
-  return fetch(`/api/sentences?tags=${tags.join("+")}`, {
-    method: "GET",
-  }).then((response) => response.json());
-};
-
-const handleFetchTags = () => {
-  return fetch(`/api/tags`, {
-    method: "GET",
-  }).then((response) => response.json());
-};
+import * as ApiUtil from "../api_util";
 
 const Index = () => {
   const [sentences, setSentences] = useState([]);
@@ -20,7 +9,7 @@ const Index = () => {
 
   useEffect(async () => {
     try {
-      const result = await handleFetchTags();
+      const result = await ApiUtil.fetchTags();
       setTags(result.tags);
     } catch (error) {
       console.log(error);
@@ -29,7 +18,7 @@ const Index = () => {
 
   useEffect(async () => {
     try {
-      const result = await handleFetchSentences(selected);
+      const result = await ApiUtil.fetchSentences(selected);
       setSentences(result.sentences);
     } catch (error) {
       console.log(error);
