@@ -20,6 +20,15 @@ const put = (path, body) => {
   }).then((response) => response.json());
 };
 
+// delete は予約語
+const delete_fetch = (path, body) => {
+  return fetch(path, {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  }).then((response) => response.json());
+};
+
 // sentence
 
 export const fetchSentence = (id) => {
@@ -53,7 +62,11 @@ export const createTag = async (data) => {
 };
 
 export const updateTag = async (id, data) => {
-  return fetch(`/api/tags/${id}`, data);
+  return put(`/api/tags/${id}`, data);
+};
+
+export const deleteUnusedTags = async () => {
+  return delete_fetch(`/api/tags/delete_unused`, {});
 };
 
 // report

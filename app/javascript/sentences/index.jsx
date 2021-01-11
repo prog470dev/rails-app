@@ -36,6 +36,17 @@ const Index = () => {
       >
         Tag Summary
       </button>
+      <button
+        onClick={() => {
+          try {
+            ApiUtil.deleteUnusedTags();
+          } catch (error) {
+            console.log(error);
+          }
+        }}
+      >
+        Delete Unused Tags
+      </button>
       <br />
       <h1>Sentences</h1>
       <List sentences={sentences} />
