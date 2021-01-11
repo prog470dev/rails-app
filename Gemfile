@@ -49,3 +49,4 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'nokogiri', '>= 1.11.0.rc4'
 gem 'pry-rails'
+gem 'resque'

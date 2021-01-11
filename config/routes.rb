@@ -8,7 +8,11 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :sentences
-    resources :tags
+    resources :tags do
+      collection do
+        delete 'delete_unused'
+      end
+    end
     resources :tag_assignments
     get 'tag_summary', to: 'reports#tag_summary'
   end

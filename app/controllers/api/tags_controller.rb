@@ -29,4 +29,9 @@ class Api::TagsController < ApplicationController
   rescue ActiveRecord::RecordNotFound => e
     render json: { message: e.message }, status: :bad_request
   end
+
+  def delete_unused
+    Resque.enqueue(DeleteUnusedTagsJob)
+    render json: {}, status: :ok
+  end
 end
